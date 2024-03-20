@@ -1,3 +1,4 @@
+### In this project we predict the cost for buying a house in Banglore 
 Templates - contains the html file which will act as an interface
 BanguluruRediction.ipynb conatains all the preprocessing process
 Bengaluru_Mod_Prj.csv is the Banguluru data set that we are working on downloaded from kaggle
