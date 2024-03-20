@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+      <style>
+           body{
+    align-self: center;
+    /* background-image:linear-gradient(to right,rgb(255, 255, 255),rgb(200, 200, 200),rgb(235, 176, 186)) */
+    /* background-image:linear-gradient(to right,lightblue,purple) */
+    /* background-image: linear-gradient(to right, #f907fc 0%, #05d6d9 74%); */
+    background: linear-gradient(to right, rgb(17, 23, 58) 0%, rgb(58, 85, 148) 90%);
+    font-size: medium;
+
+}
+/* Bordered form */
+form {
+    /* border: 3px solid #f1f1f1; */
+  }
+  .div1{
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    padding: 1em;
+  }
+
+  /* Full-width inputs */
+  input[type=number] {
+    width: 100%;
+      font-size: medium;
+    border-radius: 50px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color:black;
+    background-color: #ccc;
+  }
+
+  /* Set a style for all buttons */
+  button {
+    border-radius: 30px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: large;
+  }
+select{
+     width: 100%;
+    border-radius: 50px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color:black;
+    background-color: #ccc;
+    font-size: medium;
+
+
+}
+  /* Add a hover effect for buttons */
+  button:hover {
+    opacity: .8;
+    color:black;
+
+
+  }
+  fieldset {
+    border-radius: 30px;
+    margin: 0 auto; /* center the fieldset horizontally */
+    padding: 1em; /* add some padding around the fieldset */
+    /* background-color:beige;*/
+  }
+
+
+
+  /* Avatar image */
+  img.avatar {
+    width: 30%;
+    border-radius: 50%;
+  }
+
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+    font-size: large;
+  }
+
+  /* The "Forgot password" text */
+  span.aa {
+    color:white;
+      font-size: large;
+      align-self: auto;
+  }
+
+
+  .fortext{
+    color:beige;
+    font-size: large;
+  }
+
+      </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Renting</title>
+
+  </head>
+  <body>
+    <div class="div1">
+        Find the perfect House:
+        <br>
+        Get the Appropriate prices with <b>Renting</b>
+    </div>
+    <fieldset style="width: 400px;" >
+
+    <form method='post' accept-charset="utf-8">
+    <div class="fortext">
+        <label><b>Select Location</b></label>
+        <select id="location" name="location">
+            {% for location in locations %}
+            <option value="{{location}}">{{location}}</option>
+            {%endfor%}
+        </select>
+        <br>
+        <label for ="bhk"><b>Enter BHK</b></label>
+        <input type="number" placeholder="BHK" name="bhk" required>
+         <label for ="bathroom"><b>Enter Number of Bathrooms</b></label>
+        <input type="number" placeholder="Number of Bathrooms" name="bath" required>
+         <label for ="size"><b>Enter Total Square feet</b></label>
+        <input type="number" placeholder="Total Square Feet" name="size" required>
+        <br>
+        <button onclick="send_data()" name="Submit" id="submit">Lets Predict!</button>
+
+    </div>
+    </form>
+        <br>
+        <h3><span class="aa" id="prediction"></span></h3>
+
+<script>
+    function form_handler(event)
+        {
+            event.preventDefault();
+        }
+    function send_data()
+    {
+        document.querySelector('form').addEventListener("submit",form_handler);
+        var fd=new FormData(document.querySelector('form'));
+        var xhr=new XMLHttpRequest();
+        xhr.open('POST','/predict',true);
+        document.getElementById("prediction").innerHTML="Please wait predicting the price";
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==XMLHttpRequest.DONE){
+                document.getElementById('prediction').innerHTML="Prediction : RS-"+xhr.responseText;
+            }
+        }
+        xhr.onload=function(){};
+        xhr.send(fd);
+    }
+</script>
+</fieldset>
+
+  </body>
+</html>
